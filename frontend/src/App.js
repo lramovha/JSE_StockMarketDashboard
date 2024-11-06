@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+// frontend/src/App.js
+import React, { useEffect, useState } from 'react';
+import { getStockData } from './api';
 
 function App() {
+  const [stockData, setStockData] = useState(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      const data = await getStockData("NFLX");
+      setStockData(data);
+    }
+    fetchData();
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Stock Market Dashboard</h1>
+      {stockData ? (
+        <div>
+          <h2>{stockData.symbol}</h2>
+          <p>Price: ${stockData.price}</p>
+          <p>PE Ratio: {stockData.PE}</p>
+          <p>EPS: {stockData.EPS}</p>
+          <p>ROIC: {stockData.ROIC}%</p>
+        </div>
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
   );
 }
 
 export default App;
+
