@@ -2,13 +2,17 @@
 import React, { useState, useEffect } from 'react';
 import Ticker from '../components/Ticker';
 import StockTable from '../components/StockTable';
+import StockDetailModal from '../components/StockDetailModal';
 import { getStockData } from '../api';
 
 function Dashboard() {
   const [stocks, setStocks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const symbols = ["AAPL", "NFLX", "GOOGL", "AMZN"]; // Example symbols
+  const [selectedStock, setSelectedStock] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const symbols = ["AAPL", "NFLX", "GOOGL", "AMZN", "MSFT", "TSLA", "NVDA", "META", "JPM", "V"];
 
   useEffect(() => {
     async function fetchStockList() {
@@ -25,18 +29,41 @@ function Dashboard() {
     fetchStockList();
   }, []);
 
+  const handleStockClick = (stock) => {
+    setSelectedStock(stock);
+    setIsModalOpen(true);
+  };
+
   return (
     <div className="Dashboard">
-      <Ticker stocks={stocks} />
+      <Ticker stocks={stocks} setSelectedStock={handleStockClick} />
+      <div className="stock-buttons">
+        {symbols.map(symbol => (
+          <button
+            key={symbol}
+            className={selectedStock === symbol ? "active" : ""}
+            onClick={() => setSelectedStock(symbol)}
+          >
+            {symbol}
+          </button>
+        ))}
+      </div>
       {loading ? (
         <p>Loading...</p>
       ) : error ? (
         <p>{error}</p>
       ) : (
-        <StockTable stocks={stocks} />
+        <StockTable stocks={stocks} onStockClick={handleStockClick} />
       )}
+      <StockDetailModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        stockData={selectedStock}
+      />
     </div>
   );
 }
 
 export default Dashboard;
+
+

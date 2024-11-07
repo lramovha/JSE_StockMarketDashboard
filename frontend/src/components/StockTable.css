@@ -1,17 +1,19 @@
-/* frontend/src/components/StockTable.css */
-.StockTable {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+/* frontend/src/App.css */
+.StockTable th {
+    background-color: #2d2d2d;
+    position: sticky;
+    top: 0;
   }
   
-  .StockTable th, .StockTable td {
-    border: 1px solid #ddd;
-    padding: 8px;
-  }
-  
-  .StockTable th {
+  .StockTable tbody tr:nth-child(even) {
     background-color: #333;
-    color: white;
+  }
+  
+  .StockTable tbody tr:nth-child(odd) {
+    background-color: #2d2d2d;
+  }
+  
+  .StockTable tbody tr:hover {
+    background-color: #444;
   }
   

@@ -1,6 +1,6 @@
 # backend/app/main.py
 import os
-from . import requests
+import requests
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 

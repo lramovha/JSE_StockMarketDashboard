@@ -2,12 +2,16 @@
 import React from 'react';
 import './Ticker.css';
 
-function Ticker({ stocks }) {
+function Ticker({ stocks, setSelectedStock }) {
   return (
     <div className="Ticker">
       {stocks.map(stock => (
-        <div key={stock.symbol} className="Ticker-item">
-          {stock.symbol}: ${stock.price} ({stock.change}%)
+        <div
+          key={stock.symbol}
+          className="Ticker-item"
+          onClick={() => setSelectedStock(stock.symbol)}
+        >
+          {stock.symbol}: ${stock.price} ({stock.percentChange}%)
         </div>
       ))}
     </div>
