@@ -1,0 +1,26 @@
+/* frontend/src/components/Ticker.css */
+.Ticker {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 10px;
+    background-color: #333;
+    color: #e0e0e0;
+    font-size: 1.1em;
+    font-weight: bold;
+    animation: tickerScroll 20s linear infinite;
+  }
+  
+  .Ticker-item {
+    padding: 0 15px;
+  }
+  
+  @keyframes tickerScroll {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+  

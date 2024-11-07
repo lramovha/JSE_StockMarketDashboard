@@ -1,38 +1,59 @@
+/* frontend/src/App.css */
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+  font-family: Arial, sans-serif;
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  background-color: #2d2d2d;
+  padding: 15px;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+}
+
+.Ticker {
+  background-color: #333;
+  color: #eee;
+  padding: 10px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  overflow-x: scroll;
 }
 
-.App-link {
-  color: #61dafb;
+.Ticker-item {
+  margin-right: 20px;
+  font-weight: bold;
+  animation: tickerScroll 10s linear infinite;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+@keyframes tickerScroll {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
 }
+
+.StockTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.StockTable th, .StockTable td {
+  padding: 10px;
+  border: 1px solid #444;
+  text-align: right;
+}
+
+.StockTable th {
+  background-color: #444;
+}
+
+.StockTable tr:hover {
+  background-color: #555;
+}
+

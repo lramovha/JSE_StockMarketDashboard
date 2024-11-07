@@ -1,13 +1,17 @@
 # backend/app/main.py
+import os
+from . import requests
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-# CORS setup to allow React frontend to access FastAPI
+# Alpha Vantage API key
+ALPHA_VANTAGE_API_KEY = "P0TKNIGW4BLQW764"
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # React frontend URL
+    allow_origins=["http://localhost:3000"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -15,5 +19,19 @@ app.add_middleware(
 
 @app.get("/api/stock/{symbol}")
 async def get_stock_data(symbol: str):
-    # Sample data; replace with actual logic
-    return {"symbol": symbol, "price": 427.5, "PE": 40.99, "EPS": 8.57, "ROIC": 12.69}
+    url = f"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={symbol}&apikey={ALPHA_VANTAGE_API_KEY}"
+    response = requests.get(url)
+    data = response.json()
+    quote = data.get("Global Quote", {})
+
+    return {
+        "symbol": symbol,
+        "price": float(quote.get("05. price", 0)),
+        "change": float(quote.get("09. change", 0)),
+        "percentChange": float(quote.get("10. change percent", "0%").strip('%')),
+        "volume": int(quote.get("06. volume", 0)),
+        "high": float(quote.get("03. high", 0)),
+        "low": float(quote.get("04. low", 0)),
+        "marketCap": "N/A"  # Alpha Vantage doesn't provide market cap in free tier
+    }
+

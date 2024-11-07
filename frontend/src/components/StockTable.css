@@ -1,0 +1,17 @@
+/* frontend/src/components/StockTable.css */
+.StockTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .StockTable th, .StockTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .StockTable th {
+    background-color: #333;
+    color: white;
+  }
+  
