@@ -1,2 +1,8 @@
-API_BASE_URL = "https://www.alphavantage.co/query"
-API_KEY = "P0TKNIGW4BLQW764"  # Replace with your API key
+# config.py
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+ALPHA_VANTAGE_API_KEY = os.getenv("DC2BW7CFKZHL4COF")
+BASE_URL = "https://www.alphavantage.co/query"
