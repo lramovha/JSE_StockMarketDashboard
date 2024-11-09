@@ -2,10 +2,11 @@
 from fastapi import APIRouter, HTTPException
 from app.models.asset import ChartData
 from app.services.data_fetcher import fetch_chart_data
+from typing import List
 
 router = APIRouter()
 
-@router.get("/", response_model=list[ChartData])
+@router.get("/", response_model=List[ChartData])
 async def get_chart_data(symbol: str, interval: str = "5min"):
     data = fetch_chart_data(symbol, interval)
     if not data:
